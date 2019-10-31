@@ -14,7 +14,7 @@
 
   <!-- Add Button -->
   <a href="{{route('flats.index')}}" class="btn btn-outline-dark btn-lg mb-3 mt-1">
-    <i class="fas fa-folder-plus mr-1"></i>Back
+    <i class="fas fa-backward mr-2"></i>Back
   </a>
 
   <div class="card">
@@ -101,7 +101,7 @@
         </div>
 
 
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save mr-2"></i>Save</button>
       </form>
 
     </div>

@@ -11,7 +11,7 @@
 
   <!-- Add Button -->
   <a href="{{route('flat-owners.create')}}" class="btn btn-success btn-lg mb-2 mt-1">
-    <i class="fas fa-folder-plus mr-1"></i>Add
+    <i class="fas fa-folder-plus mr-2"></i>Add
   </a>
 
   <div class="card mb-3">

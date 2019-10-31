@@ -12,13 +12,13 @@
     <li class="breadcrumb-item active">Edit LandOwner</li>
   </ol>
 
-  <!-- Add Button -->
+  <!-- Back Button -->
   <a href="{{route('landowners.index')}}" class="btn btn-outline-dark btn-lg mb-3 mt-1">
-    <i class="fas fa-folder-plus mr-1"></i>Back
+    <i class="fas fa-backward mr-2"></i>Back
   </a>
 
   <div class="card">
-    <h4 class="card-header">Edit Flat</h4>
+    <h4 class="card-header">Edit Land Owner</h4>
     <div class="card-body">
 
       <form action="{{route('landowners.update', $landOwner->id)}}" method="post">
@@ -34,7 +34,7 @@
             name="sel_area"
             id="sel_area"
           >
-            <option value="{{$selected_area->area_id}}" selected>{{$selected_area->area_name}}</option>
+            <option value="{{$landOwner->area_id}}" selected>{{$landOwner->area_name}}</option>
             @foreach ($areas as $area)
               <option value="{{$area->id}}">{{$area->name}}</option>
             @endforeach
@@ -55,7 +55,7 @@
             name="sel_plot"
             id="sel_plot"
           >
-            <option value="{{$selected_area->plot_id}}" selected>{{$selected_area->plot_no}}</option>
+            <option value="{{$landOwner->plot_id}}" selected>{{$landOwner->plot_no}}</option>
           </select>
           @error('sel_plot')
           <div class="invalid-feedback">
@@ -83,7 +83,7 @@
         </div>
 
 
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save mr-2"></i>Save</button>
       </form>
 
     </div>

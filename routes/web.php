@@ -42,3 +42,8 @@ Route::resource('landowners', 'LandOwnerController');
 // FlatOwner Route
 Route::resource('flat-owners', 'FlatOwnerController');
 
+// Preview Route
+Route::get('preview', 'PreviewController@index')->name('preview.index');
+Route::post('preview', 'PreviewController@getData')->name('preview.get-data');
+Route::get('show', 'PreviewController@show')->name('preview.show');
+

@@ -66,4 +66,16 @@
     </div>
   </li>
 
+  {{--Preview Dropdown Menu--}}
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="areasDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-map-marked-alt mr-2"></i>
+      <span>Preview</span>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="areasDropdown">
+      <a class="dropdown-item" href="{{route('preview.index')}}">Show</a>
+{{--      <a class="dropdown-item" href="{{route('flat-owners.create')}}">Add FlatOwner</a>--}}
+    </div>
+  </li>
+
 </ul>

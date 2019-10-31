@@ -6,23 +6,21 @@
     <li class="breadcrumb-item">
       <a href="{{route('dashboard')}}">Dashboard</a>
     </li>
-    <li class="breadcrumb-item">
-      <a href="{{route('flat-owners.index')}}">FlatOwners</a>
-    </li>
-    <li class="breadcrumb-item active">Create FlatOwner</li>
+    <li class="breadcrumb-item active">Preview</li>
   </ol>
 
-  <!-- Back Button -->
-  <a href="{{route('flat-owners.index')}}" class="btn btn-outline-dark btn-lg mb-3 mt-1">
-    <i class="fas fa-angle-double-left mr-1"></i>Back
+  <!-- Add Button -->
+  <a href="{{route('dashboard')}}" class="btn btn-outline-dark btn-lg mb-3 mt-1">
+    <i class="fas fa-backward mr-2"></i>Back
   </a>
 
   <div class="card">
-    <h4 class="card-header"><i class="fas fa-calendar-plus mr-2"></i>Add New Flat Owner</h4>
+    <h4 class="card-header">Preview</h4>
     <div class="card-body">
 
-      <form action="{{route('flat-owners.store')}}" method="post">
+      <form action="{{route('preview.get-data')}}" method="post">
         @csrf
+
 
         {{--Select Area Field--}}
         <div class="form-group">
@@ -63,38 +61,7 @@
         </div>
 
 
-        {{--Select Flat Field--}}
-        <div class="form-group">
-          <label for="sel_flat">Select Flat</label>
-          <select
-            class="form-control @error('sel_flat') is-invalid @enderror"
-            name="sel_flat"
-            id="sel_flat"
-          >
-            <option value="0" selected>Select a Plot From Above</option>
-          </select>
-          @error('sel_flat')
-          <div class="invalid-feedback">
-            <strong>{{ $message }}</strong>
-          </div>
-          @enderror
-        </div>
-
-
-        {{--Flat Owner Name Field--}}
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            name="name" id="name"
-            placeholder="Enter Owner Name"
-            value="{{old('name')}}"
-          >
-        </div>
-
-
-        <button type="submit" class="btn btn-primary"><i class="fas fa-save mr-2"></i>Save</button>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-eye mr-2"></i>View</button>
       </form>
 
     </div>
@@ -103,5 +70,4 @@
 
 @section('script')
   <script src="{{asset('backend/js/get_plots.js')}}"></script>
-  <script src="{{asset('backend/js/get_flats.js')}}"></script>
 @stop

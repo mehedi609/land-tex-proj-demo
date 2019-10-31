@@ -22,11 +22,7 @@ class FlatController extends Controller
       Alert::success('Success', session('status'));
     }
 
-    $flats = DB::table('flats')
-      ->join('plots', 'flats.plot_id', '=', 'plots.id')
-      ->select('flats.*', 'plots.plot_no')
-      ->orderBy('flats.id')
-      ->paginate(10);
+    $flats = $this->getFlatsInfo();
 
 //      print("<pre>".print_r($flats,true)."</pre>");
 
@@ -79,28 +75,18 @@ class FlatController extends Controller
   /**
    * Show the form for editing the specified resource.
    *
-   * @param \App\Flat $flat
+   * @param $id
    * @return \Illuminate\Http\Response
    */
-  public function edit(Flat $flat)
+  public function edit($id)
   {
-    /*$selected_area_arr = DB::table('flats')
-      ->join('plots', 'flats.plot_id', '=', 'plots.id')
-      ->join('areas', 'plots.area_id', '=', 'areas.id')
-      ->where('flats.id', $flat->id)
-      ->select('areas.id', 'areas.name')
-      ->get();*/
-/*    $selected_area = $selected_area_arr[0];
-    $selected_area_id = $selected_area->id;
-    print("<pre>".print_r($flat,true)."</pre>");*/
+    $flat = $this->getFlatById($id);
 
-    $selected_area = $this->getSelectedArea($flat->id);
-
-    $areas = Area::getFilteredArea($selected_area->area_id);
+    $areas = Area::getFilteredArea($flat->area_id);
 
 //    print("<pre>".print_r($areas,true)."</pre>");
 
-    return view('backend.flats.edit', compact('flat', 'areas', 'selected_area'));
+    return view('backend.flats.edit', compact('flat', 'areas'));
   }
 
   /**
@@ -139,21 +125,31 @@ class FlatController extends Controller
   }
 
 
-  public function getSelectedArea($id)
+  public function getFlatsInfo()
   {
-    $selected_area_arr = DB::select(
-      DB::raw(
-        "select areas.id as area_id, areas.name as area_name, plots.id as plot_id, plots.plot_no, flats.*
-            from flats join plots on flats.plot_id = plots.id 
-            join areas on plots.area_id = areas.id
-            where flats.id = '$id';
-            "
-      )
-    );
+    $flats = DB::table('flats')
+      ->join('plots', 'flats.plot_id', '=', 'plots.id')
+      ->join('areas', 'plots.area_id', '=', 'areas.id')
+      ->select('areas.id as area_id', 'areas.name as area_name', 'plots.plot_no', 'flats.*')
+      ->orderBy('id')
+      ->paginate(10);
 
-    return $selected_area_arr[0];
+    return $flats;
   }
 
+
+  public function getFlatById($id)
+  {
+    $flats = DB::table('flats')
+      ->join('plots', 'flats.plot_id', '=', 'plots.id')
+      ->join('areas', 'plots.area_id', '=', 'areas.id')
+      ->select('areas.id as area_id', 'areas.name as area_name', 'plots.plot_no', 'flats.*')
+      ->where('flats.id', $id)->get();
+
+    return $flats[0];
+  }
+
+  // Used for ajax call
   public function getFlatsByPlotId($id)
   {
     $flats = DB::table('flats')->where('plot_id', $id)->orderBy('flats.id')->get();

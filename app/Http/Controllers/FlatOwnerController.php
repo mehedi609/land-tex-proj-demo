@@ -128,7 +128,7 @@ class FlatOwnerController extends Controller
     $flatOwner->name = $request->name;
     $flatOwner->flat_id = $flat_id;
 
-//    $flatOwner->save();
+    $flatOwner->save();
 
     return redirect()
       ->route('flat-owners.index')
@@ -158,18 +158,8 @@ class FlatOwnerController extends Controller
       ->select('areas.id as area_id', 'areas.name as area_name',
         'plots.id as plot_id', 'plots.plot_no', 'flats.flat_no', 'flat_owners.*'
       )
+      ->orderBy('id')
       ->paginate(10);
-
-    /*$flatOwners = DB::select(
-      DB::raw(
-        "select areas.id as area_id, areas.name as area_name,
-                    plots.id as plot_id, plots.plot_no,
-                    flats.flat_no, flat_owners.*
-                from flat_owners join flats on flat_owners.flat_id = flats.id
-                join plots on flats.plot_id = plots.id
-                join areas on plots.area_id = areas.id;"
-      )
-    );*/
 
     return $flatOwners;
   }

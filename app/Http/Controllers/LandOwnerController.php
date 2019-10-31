@@ -109,11 +109,11 @@ class LandOwnerController extends Controller
 //    $landOwner = LandOwner::findOrFail($id);
 //    print("<pre>".print_r($landOwner,true)."</pre>");
 
-    $selected_area = $this->getLandOwnerId($id);
+    $landOwner = $this->getLandOwnerId($id);
 
-    $areas = Area::getFilteredArea($selected_area->area_id);
+    $areas = Area::getFilteredArea($landOwner->area_id);
 
-    return view('backend.land_owners.edit', compact('selected_area', 'areas', 'landOwner'));
+    return view('backend.land_owners.edit', compact('areas', 'landOwner'));
   }
 
   /**
@@ -168,15 +168,6 @@ class LandOwnerController extends Controller
 
   public function getLandOwnerId($id)
   {
-    /*$landOwner = DB::select(
-      DB::raw("
-        select areas.id as area_id, areas.name as area_name, plots.plot_no, 
-          land_owners.*
-        from land_owners join plots on land_owners.plot_id = plots.id
-        join areas on plots.area_id = areas.id
-        where land_owners.id = '$id';
-      ")
-    );*/
 
     $landOwner = DB::table('land_owners')
       ->join('plots', 'land_owners.plot_id', '=', 'plots.id')

@@ -14,7 +14,7 @@
 
   <!-- Add Button -->
   <a href="{{route('flats.index')}}" class="btn btn-outline-dark btn-lg mb-3 mt-1">
-    <i class="fas fa-folder-plus mr-1"></i>Back
+    <i class="fas fa-backward mr-2"></i>Back
   </a>
 
   <div class="card">
@@ -34,7 +34,7 @@
             name="sel_area"
             id="sel_area"
           >
-            <option value="{{$selected_area->area_id}}" selected>{{$selected_area->area_name}}</option>
+            <option value="{{$flat->area_id}}" selected>{{$flat->area_name}}</option>
             @foreach ($areas as $area)
               <option value="{{$area->id}}">{{$area->name}}</option>
             @endforeach
@@ -54,7 +54,7 @@
             name="sel_plot"
             id="sel_plot"
           >
-            <option value="{{$selected_area->plot_id}}" selected>{{$selected_area->plot_no}}</option>
+            <option value="{{$flat->plot_id}}" selected>{{$flat->plot_no}}</option>
           </select>
           @error('sel_plot')
           <div class="invalid-feedback">
@@ -100,7 +100,7 @@
         </div>
 
 
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save mr-2"></i>Save</button>
       </form>
 
     </div>
@@ -108,50 +108,5 @@
 @stop
 
 @section('script')
-  <script>
-      $(document).ready(function () {
-          let id = null;
-
-          // Area Change
-          $('#sel_area').change(function () {
-
-              // Area id
-              id = $(this).val();
-
-              // Empty the dropdown
-              // $('#sel_plot').find('option').not(':first').remove();
-              $('#sel_plot').find('option').remove();
-
-              // AJAX request
-              fetchData(id);
-          });
-
-
-          function fetchData(id) {
-              // AJAX request
-              $.ajax({
-                  url: `/getplots/${id}`,
-                  type: 'get',
-                  success: function (response) {
-                      // console.log(response);
-
-                      let len = 0;
-                      if (response != null) {
-                          len = response.length;
-                      }
-                      // console.log(len)
-
-                      if (len > 0) {
-                          // Read data and create <option >
-                          response.forEach(function (data) {
-                              let option = `<option value="${data.id}">${data.plot_no}</option>`;
-                              $('#sel_plot').append(option);
-                          })
-                      }
-
-                  }
-              });
-          }
-      })
-  </script>
+  <script src="{{asset('backend/js/get_plots.js')}}"></script>
 @stop

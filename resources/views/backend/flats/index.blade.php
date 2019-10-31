@@ -11,7 +11,7 @@
 
   <!-- Add Button -->
   <a href="{{route('flats.create')}}" class="btn btn-success btn-lg mb-2 mt-1">
-    <i class="fas fa-folder-plus mr-1"></i>Add
+    <i class="fas fa-folder-plus mr-2"></i>Add
   </a>
 
   <div class="card mb-3">
@@ -27,6 +27,7 @@
             <thead class="thead-dark">
               <tr>
                 <th scope="col">#</th>
+                <th scope="col">Area Name</th>
                 <th scope="col">Plot No</th>
                 <th scope="col">Flat No</th>
                 <th scope="col">Area</th>
@@ -37,6 +38,7 @@
               @foreach ($flats as $flat)
                 <tr>
                   <th scope="row">{{$flat->id}}</th>
+                  <td>{{$flat->area_name}}</td>
                   <td>{{$flat->plot_no}}</td>
                   <td>{{$flat->flat_no}}</td>
                   <td>{{$flat->area}}</td>
