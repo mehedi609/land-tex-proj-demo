@@ -177,4 +177,16 @@ class FlatOwnerController extends Controller
 
     return $flatOwner[0];
   }
+
+  public function getFlatOwnersByFlatId($id)
+  {
+    $flatOwners = DB::table('flat_owners')
+      ->join('flats', 'flat_owners.flat_id', '=', 'flats.id')
+      ->select('flat_owners.*')
+      ->where('flats.id', $id)
+      ->orderByDesc('flat_owners.track_owner')
+      ->get();
+
+    return $flatOwners;
+  }
 }
